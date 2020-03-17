@@ -1,0 +1,15 @@
+{{ block "header" . }}
+<header role="contentinfo">
+    {{ if .Site.Menus.main }}
+    <div class="header-links">
+        {{- range .Site.Menus.main -}}
+            {{ if eq (hasPrefix .URL "mailto:") true }}
+            <a href="{{ .URL }}" target="_blank">{{- .Name -}}</a>
+            {{ else }}
+            <a href="{{ .URL | relLangURL }}">{{- .Name -}}</a> /
+            {{- end -}}
+        {{ end }}
+    </div>
+    {{ end }}
+</header>
+{{ end }}
