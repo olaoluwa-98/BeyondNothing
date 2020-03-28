@@ -7,9 +7,22 @@
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/skeleton.css">
     <link rel="stylesheet" href="/css/custom.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <title>
         {{- block "title" . -}}
         {{ .Title}} {{ if ne .Title .Site.Title }} | {{ .Site.Title }}{{ end }}
         {{- end -}}
     </title>
+    {{- if .RSSLink }}
+    <link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
+    {{- end -}}
+
+    {{ if eq .Site.IsServer false }}
+    {{ template "_internal/google_analytics_async.html" . }}
+    {{ end }}
+
+    {{ template "_internal/opengraph.html" . }}
+    {{ template "_internal/twitter_cards.html" . }}
+    {{ template "_internal/schema.html" . }}
 </head>
