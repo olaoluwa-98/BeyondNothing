@@ -3,15 +3,27 @@
 	.list-pages {
 		margin: 0;
 	}
+	.list-pages .lh-copy{
+		margin: 2em;
+	}
+	.list-pages{
+		padding-left: 0;
+	}
 </style>
+
+{{ if .Content }}
+{{ partial "single" . }}
+{{ end }}
+
 <main role="main">
-	{{ .Content }}
 	<ul class="list-pages">
-		{{ range .Site.RegularPages }}
-		<li class="lh-copy"><a href="{{ .Permalink | relURL }}" class="link f5">{{ .Title }}</a> - <time>{{ .Date.Format "January 02, 2006" }}</time></li>
+		{{ range .Paginator.Pages }}
+		<li class="lh-copy"><a href="{{ .Permalink | relURL }}" class="link f5">{{ .Title }}</a> 
+			<br>- <time>{{ .Date.Format "January 02, 2006" }}</time>
+		</li>
 		{{ end }}
+		{{ $paginator := .Paginate ( where .Paginator.Pages "Type" "post" ) 1 }}
 	</ul>
-	{{ $paginator := .Paginate ( where .Site.RegularPages "Type" "post" ) 10 }}
 </main>
 
 {{ end }}
